@@ -1,36 +1,23 @@
 {
-  "name": "greyson",
-  "version": "0.1.0",
+  "name": "userlist",
+  "version": "1.0.0",
+  "description": "Simple rest api for list of users written in Node + Restify",
+  "main": "index.js",
+  "repository": "https://github.com/honzapospi/userlist",
+  "author": "Jan Pospisil <me@jan-pospisil.cz>",
+  "license": "MIT",
   "private": true,
-  "dependencies": {
-    "@reduxjs/toolkit": "^1.1.0",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-redux": "^7.1.3",
-    "react-scripts": "4.0.1"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "dependencies": {
+    "path": "^0.12.7",
+    "restify": "^7.2.1",
+    "restify-cors-middleware": "^1.1.1",
+    "restify-plugins": "^1.6.0"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "nodemon": "^1.18.4"
   }
 }
