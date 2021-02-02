@@ -34,7 +34,6 @@ server.get(
     default: "index.html",
   })
 );
-
 // logger
 server.use((req, res, next) => {
   console.log(req.method + ": " + req.url);
