@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import axios from "axios";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { addUsers } from "../redux/slices/usersSlice";
 import { UsersList } from "../components/UsersList.js";
+
+import { useSelector } from "react-redux";
 
 const Container = styled.section`
   display: flex;
@@ -17,16 +19,21 @@ export const HomeScreen = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  async function fetchData() {
-    // fetching data from backend and serving to the store
-    setLoading(true);
-    const response = await axios.get("/user");
-    dispatch(addUsers({ data: response.data }));
-    setLoading(false);
-  }
+  const state = useSelector((state) => state.usersReducer);
+
+  const memoizedFetchData = useCallback(() => {
+    async function fetchData() {
+      // fetching data from backend and serving to the store
+      setLoading(true);
+      const response = await axios.get("/user");
+      dispatch(addUsers({ data: response.data }));
+      setLoading(false);
+    }
+    fetchData();
+  }, [state]);
 
   useEffect(() => {
-    fetchData();
+    memoizedFetchData();
   }, []);
 
   return (

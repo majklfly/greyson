@@ -7,6 +7,9 @@ import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
+import { useDispatch } from "react-redux";
+import { addUser } from "../redux/slices/usersSlice";
+
 const Container = styled.section`
   width: 100vw;
   position: fixed;
@@ -37,10 +40,11 @@ const StyledTextField = styled(TextField)`
 `;
 
 export const InsertUserForm = () => {
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [occupation, setOccupation] = useState();
-  let history = useHistory();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [occupation, setOccupation] = useState("");
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const updateDatabase = () => {
     const id = Date.now();
@@ -50,6 +54,14 @@ export const InsertUserForm = () => {
       surname: lastName,
       job: occupation,
     });
+    dispatch(
+      addUser({
+        id: id,
+        name: firstName,
+        surname: lastName,
+        job: occupation,
+      })
+    );
   };
 
   return (
@@ -74,7 +86,12 @@ export const InsertUserForm = () => {
           value={occupation}
           onChange={(e) => setOccupation(e.target.value)}
         />
-        <Button onClick={() => updateDatabase()}>Add The User</Button>
+        <Button
+          onClick={() => updateDatabase()}
+          disabled={firstName && lastName && occupation ? false : true}
+        >
+          Add The User
+        </Button>
       </Form>
     </Container>
   );
