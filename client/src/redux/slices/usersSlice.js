@@ -9,26 +9,38 @@ const usersSlice = createSlice({
     addUsers(state, action) {
       const { data } = action.payload;
       data.forEach((user) => {
-        state[user.id] = user;
+        if (!state[user.id]) {
+          state[user.id] = user;
+        }
       });
     },
     addUser(state, action) {
       const res = action.payload;
-      state[res.id] = {
-        id: res.id,
-        name: res.name,
-        surname: res.surname,
-        job: res.job,
-      };
+      if (!state[res.id]) {
+        state[res.id] = {
+          id: res.id,
+          name: res.name,
+          surname: res.surname,
+        };
+      }
     },
     removeUser(state, action) {
       const res = action.payload.data;
       const id = res.id;
       delete state[id];
     },
+    updateUser(state, action) {
+      const res = action.payload;
+      console.log(res);
+      state[res.id] = {
+        id: res.id,
+        name: res.name,
+        surname: res.surname,
+      };
+    },
   },
 });
 
-export const { addUsers, addUser, removeUser } = usersSlice.actions;
+export const { addUsers, addUser, removeUser, updateUser } = usersSlice.actions;
 
 export default usersSlice.reducer;

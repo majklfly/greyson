@@ -7,6 +7,7 @@ import { Background } from "./components/Background";
 import { HomeScreen } from "./screens/HomeScreen";
 import { DetailScreen } from "./screens/DetailScreen";
 import { InsertUserForm } from "./components/InsertUserForm";
+import { EditScreen } from "./screens/EditScreen";
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
       <Router>
         <InsertUserForm />
         <Switch>
+          <Route path="/edit">
+            <EditScreen />
+          </Route>
           <Route path="/userDetails">
             <DetailScreen />
           </Route>

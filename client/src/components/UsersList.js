@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 
 const CustomList = styled(List)`
   width: 50vw;
+  min-width: 300px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 0 2px 2px darkgrey;

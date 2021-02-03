@@ -42,26 +42,26 @@ const StyledTextField = styled(TextField)`
 export const InsertUserForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [occupation, setOccupation] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const updateDatabase = () => {
+  const updateDatabase = async () => {
     const id = Date.now();
-    axios.post("/user", {
-      id: id,
-      name: firstName,
-      surname: lastName,
-      job: occupation,
-    });
     dispatch(
       addUser({
         id: id,
         name: firstName,
         surname: lastName,
-        job: occupation,
       })
     );
+    history.push("/");
+    setFirstName("");
+    setLastName("");
+    await axios.post("/user", {
+      id: id,
+      name: firstName,
+      surname: lastName,
+    });
   };
 
   return (
@@ -80,15 +80,9 @@ export const InsertUserForm = () => {
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
-        <StyledTextField
-          id="standard-basic"
-          label="Occupation"
-          value={occupation}
-          onChange={(e) => setOccupation(e.target.value)}
-        />
         <Button
           onClick={() => updateDatabase()}
-          disabled={firstName && lastName && occupation ? false : true}
+          disabled={firstName && lastName ? false : true}
         >
           Add The User
         </Button>

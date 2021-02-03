@@ -13,6 +13,7 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Avatar from "@material-ui/core/Avatar";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 
 import Modal from "@material-ui/core/Modal";
 import { ConfirmDelete } from "./ConfirmDelete";
@@ -33,6 +34,11 @@ export const CustomListItem = ({ data }) => {
     history.push("/userDetails");
   };
 
+  const EditUser = () => {
+    dispatch(addCurrentUser({ data: data }));
+    history.push("/edit");
+  };
+
   return (
     <>
       <ListItem button onClick={() => RedirectToDetail()}>
@@ -43,12 +49,11 @@ export const CustomListItem = ({ data }) => {
         </ListItemAvatar>
         <ListItemText primary={data.surname} secondary={data.name} />
         <ListItemSecondaryAction>
-          <IconButton
-            edge="end"
-            aria-label="delete"
-            onClick={() => setOpenModal((prev) => !prev)}
-          >
-            <DeleteIcon />
+          <IconButton edge="end" aria-label="edit">
+            <EditIcon onClick={() => EditUser()} />
+          </IconButton>
+          <IconButton edge="end" aria-label="delete">
+            <DeleteIcon onClick={() => setOpenModal((prev) => !prev)} />
           </IconButton>
         </ListItemSecondaryAction>
       </ListItem>
